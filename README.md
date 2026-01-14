@@ -1,3 +1,13 @@
+PORT=5000
+
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=Mumbai@123
+DB_NAME=stripe_demo
+
+STRIPE_SECRET_KEY=sk_test_51SmYW64zermHT3uKQclzmMohSdZ8fyxyngg60UCLyv9uHcfp0l7w7KsbLZNvcur8r7GaNKDBrdnw5ERfd69rQSmq00H1pDFb8Z
+STRIPE_WEBHOOK_SECRET=whsec_388322a481bbd4f0109e8655e66260fdbd9b9d8c1d891d7a2fd52043f373cfc3
+STRIPE_PUBLISH_KEY=pk_test_51SmYW64zermHT3uKzs5AgUSgMKTLSU4MAXw3rMkhPMPCMWAoOuET2TaAtzpK74yP2Oswb1ssvvaRqj3qTFndxACI00qB8wrSnj
 
 # Microservices Project (Node.js + Docker + Kubernetes)
 
