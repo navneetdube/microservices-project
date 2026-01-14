@@ -14,7 +14,7 @@ services:
     build: ./services/payment-service
     container_name: payment-service
     ports:
-      - "3001:3001"
+      - "3001:5000"
     env_file:
       - ./services/payment-service/.env
     depends_on:
