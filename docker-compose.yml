@@ -1,0 +1,60 @@
+services:
+  user-service:
+    build: ./services/user-service
+    container_name: user-service
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./services/user-service/.env
+    depends_on:
+      user-db:
+        condition: service_healthy
+
+  payment-service:
+    build: ./services/payment-service
+    container_name: payment-service
+    ports:
+      - "3001:3001"
+    env_file:
+      - ./services/payment-service/.env
+    depends_on:
+      payment-db:
+        condition: service_healthy
+
+  user-db:
+    image: mysql:8.0
+    container_name: user-db
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: user_service
+    ports:
+      - "3307:3306"
+    volumes:
+      - user-db-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  payment-db:
+    image: mysql:8.0
+    container_name: payment-db
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: payment_service
+    ports:
+      - "3308:3306"
+    volumes:
+      - payment-db-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  user-db-data:
+  payment-db-data:

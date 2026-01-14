@@ -39,7 +39,7 @@ const Order = sequelize.define("Order", {
     defaultValue: ORDER_STATUS.CREATED
   },
   inspectionManagerId: {
-    type: DataTypes.BIGINT
+    type: DataTypes.INTEGER
   }
 }, {
   tableName: "orders",
