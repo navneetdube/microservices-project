@@ -1,0 +1,8 @@
+module.exports.ACTIONS = {
+  CREATE: "CREATE",
+  READ: "READ",
+  UPDATE: "UPDATE",
+  DELETE: "DELETE",
+  SUBMIT: "SUBMIT",
+  UPLOAD: "UPLOAD"
+};

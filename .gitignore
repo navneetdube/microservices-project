@@ -1,0 +1,28 @@
+# Node
+node_modules/
+npm-debug.log
+yarn.lock
+
+# Env
+.env
+.env.*
+
+# Docker
+*.log
+.docker/
+
+# Kubernetes
+*.pem
+*.key
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Build
+dist/
+coverage/
