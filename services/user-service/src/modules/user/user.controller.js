@@ -3,20 +3,30 @@ const { sendResponse } = require("../../utils/errorResponse");
 const ERROR_CODES = require("../../constants/errorCodes");
 const runValidation = require("../../utils/runValidation")
 const validation = require("./user.validation");
+const { publishUserCreatedEvent } = require("../../events/user.producer");
+
+
 
 
 exports.register = async (req, res) => {
   try {
     const validationError = await runValidation(req, validation.register);
+    console.log("🚀 ~ validationError:", validationError)
   if (validationError) {
     return sendResponse(res, validationError); 
   }
     const result = await service.register(req.body, req.user);
+    console.log("🚀 ~ result:", result)
 
     
       if (result?.errorCode) {
       return sendResponse(res, result); 
     }
+
+    await publishUserCreatedEvent({
+      id: result.id,
+      email: result.email,
+      });
 
     return sendResponse(res, {
       data: result,

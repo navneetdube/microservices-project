@@ -7,6 +7,9 @@ const sequelize = require("./config/db");
 const routes = require("./routes");
 const webhookRoutes = require("./modules/webhook/webhook.routes");
 const PORT = process.env.PORT || "5000"
+const { connectRabbitMQ } = require("./config/rabbitmq");
+const { consumeUserCreatedEvent } = require("./events/user.consumer");
+
 
 require('./models')
 
@@ -36,7 +39,8 @@ app.use("/", routes);
       await sequelize.sync({ alter: true });
       console.log(" Database synced successfully");
     
-      
+      await connectRabbitMQ();
+  await consumeUserCreatedEvent();
 
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);

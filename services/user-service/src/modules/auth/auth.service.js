@@ -10,6 +10,7 @@ exports.login = async ({ email, mobile, password, role }) => {
     const user = email
       ? await repo.findByEmail(email)
       : await repo.findByMobile(mobile);
+    console.log("🚀 ~ user:", user)
 
 
     if (!user) throw new Error("User not found");

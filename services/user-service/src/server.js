@@ -6,13 +6,16 @@ const swaggerDoc = require("./docs/swagger");
 const routes = require("./routes");
 const sequelize = require("./config/db");
  require("./models");
-//  const seedAdmin = require("./seeders/admin.seed");
-//  const seedModules = require("./seeders/modules.seed");
-//  const seedRoles = require("./seeders/roles.seed");
-//   const seedRoleModulePermissions = require("./seeders/roleModulePermission.seed");
+ const seedAdmin = require("./seeders/admin.seed");
+ const seedModules = require("./seeders/modules.seed");
+ const seedRoles = require("./seeders/roles.seed");
+  const seedRoleModulePermissions = require("./seeders/roleModulePermission.seed");
 const PORT = 3000;
 
 const app = express();
+
+const { connectRabbitMQ } = require("./config/rabbitmq");
+
 
 app.use(express.json());
 
@@ -32,11 +35,11 @@ app.use("/", routes);
       await sequelize.sync({ alter: false });
       console.log(" Database synced successfully");
     
-      // await seedAdmin();
-      // await seedModules();
-      // await seedRoles();
-      // await seedRoleModulePermissions();
-
+      await seedAdmin();
+      await seedModules();
+      await seedRoles();
+      await seedRoleModulePermissions();
+ await connectRabbitMQ();
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
     });
